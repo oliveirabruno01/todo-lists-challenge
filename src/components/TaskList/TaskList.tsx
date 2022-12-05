@@ -5,9 +5,19 @@ import Task, { GetTaskProps}  from '../Task/Task';
 function TaskList({title}) {
     return(
         <C.Container>
-            <C.TaskListTitle>{title}</C.TaskListTitle>
-            <C.Dots>⏺  ⏺  ⏺</C.Dots>
-            <Task></Task>
+            <div>
+                <C.TaskListTitle fixed>{title}</C.TaskListTitle>
+                <C.Dots>⬤  ⬤  ⬤</C.Dots>
+            </div>
+            
+            <C.Scrollabe>
+                <Task></Task>
+                <Task></Task>
+                <Task></Task>
+                <Task></Task>
+                <Task></Task>
+                <Task></Task>
+            </C.Scrollabe>
         </C.Container>
     )
 }

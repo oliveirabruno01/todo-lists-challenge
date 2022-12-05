@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as C from "./Task.styles";
+import todoIcon from "./todo.png";
+import progressIcon from "./progress.png";
+import doneIcon from "./done.png";
+import discardIcon from "./discard-task-icon.svg"
+import saveIcon from "./save-task-icon.svg"
 
 interface TaskProps {
     title: string;
@@ -13,17 +18,82 @@ const TaskDefaults: TaskProps = {
     list: "todo",
 }
 
-export const GetTaskProps = (props): TaskProps => {
-    return { ...TaskDefaults, ...props }
+const listIndicator = (name) => {
+    if (name == "todo") return todoIcon;
+    if (name == "progress") return progressIcon;
+    if (name == "done") return doneIcon;
 }
 
-function Task({props=GetTaskProps({})}) {
+const orderOfIndicator = {
+    'todo': 0,
+    'progress': 1,
+    'done': 2
+}
+
+const progressOrder = {
+    0: 'todo',
+    1: 'progress',
+    2: 'done'
+};
+
+export const GetTaskProps = (props={}): TaskProps => {
+    return {...TaskDefaults, ...props }
+}
+
+function Task({props=GetTaskProps()}) {
+    const [expanded, setExpanded] = useState(false);
+    const toggleExpanded = () => setExpanded(!expanded);
+    const handleClick = (e) => {
+        e.preventDefault();
+        toggleExpanded();
+    }
+
+    const [state, setState] = useState<TaskProps>(props);
+    const [description, setDescription] = useState(state.description);
+
+    const toggleNextIndicator = () => {
+        let indicator = orderOfIndicator[state.list];
+        let nextIndicator = indicator+1<Object.keys(progressOrder).length?indicator+1:0;
+        setState({...state, ...{list: progressOrder[nextIndicator]} });
+    }
+
+    const discardDescription = (e) => {
+        setDescription(state.description);
+        handleClick(e);
+    }
+
+    const saveDescription = (e) => {
+        setState({...state, ...{description: description}});
+        console.log(state);
+        handleClick(e);
+    }
+
     return (
-        <div>
-            {props.title}<br />
-            {props.description}<br />
-            {props.list}<br />
-        </div>
+        <C.Container expanded={expanded}>
+            <C.TaskTitle expanded={expanded}>
+                <C.TaskIndicator src={listIndicator(state.list)} onClick={toggleNextIndicator} image={state.list}></C.TaskIndicator>
+                <C.TaskTitleText onClick={expanded?()=>{}:handleClick}>{props.title}</C.TaskTitleText>
+            </C.TaskTitle>
+
+            <C.TaskDescriptionWrapper>
+                <C.TaskDescription 
+                value={description} 
+                expanded={expanded} 
+                onChange={(event)=>{setDescription(event.target.value)}}></C.TaskDescription>
+            </C.TaskDescriptionWrapper>
+
+            <C.TaskButtons>
+                <C.TaskButton onClick={expanded?discardDescription:()=>{}} model={'discard'}>
+                    <img src={discardIcon}/>
+                    Discard
+                </C.TaskButton>
+                <C.TaskButton onClick={expanded?saveDescription:()=>{}} model={'save'}>
+                <img src={saveIcon}/>
+                    Save task
+                </C.TaskButton>
+            </C.TaskButtons>
+
+        </C.Container>
     )
 }
 
