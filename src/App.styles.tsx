@@ -2,7 +2,14 @@ import styled, { keyframes } from "styled-components";
 
 const font_color = "#212121";
 
-const  AppLogoSpin = keyframes`
+export const AppBackground = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: radial-gradient(117.04% 95.93% at 50% 0%, #FBFBFB 0%, #E8E8E8 100%);
+`; 
+
+const AppLogoSpin = keyframes`
     from {
       transform: rotate(0deg);
     }

@@ -1,10 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
-import * as C from './App.styles'; 
+import * as C from './App.styles';
+import TaskList from './components/TaskList/TaskList';
+import ListsRow from './components/ListsRow/ListsRow';
 
 function App() {
   return (
-    <div className="App">
+    <C.AppBackground>
       <C.AppHeader>
         <C.AppLogo src={logo} alt="logo" />
 
@@ -16,7 +18,14 @@ function App() {
         </C.AppSplash>
 
       </C.AppHeader>
-    </div>
+
+      <ListsRow>
+        <TaskList title={"To-do"}></TaskList>
+        <TaskList title={"In Progress"}></TaskList>
+        <TaskList title={"Done"}></TaskList>
+      </ListsRow>
+      
+    </C.AppBackground>
   );
 }
 
