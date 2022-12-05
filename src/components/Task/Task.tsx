@@ -10,12 +10,14 @@ interface TaskProps {
     title: string;
     description: string;
     list: "todo" | "progress" | "done" | "";
+    innerRef: any;
 }
 
 const TaskDefaults: TaskProps = {
     title: "Get the trash out",
     description: "Some description",
     list: "todo",
+    innerRef: Element,
 }
 
 const listIndicator = (name) => {
@@ -40,7 +42,7 @@ export const GetTaskProps = (props={}): TaskProps => {
     return {...TaskDefaults, ...props }
 }
 
-function Task({props=GetTaskProps()}) {
+function Task({props=GetTaskProps(), children}) {
     const [expanded, setExpanded] = useState(false);
     const toggleExpanded = () => setExpanded(!expanded);
     const handleClick = (e) => {
@@ -75,7 +77,7 @@ function Task({props=GetTaskProps()}) {
                 <C.TaskTitleText onClick={expanded?()=>{}:handleClick}>{props.title}</C.TaskTitleText>
             </C.TaskTitle>
 
-            <C.TaskDescriptionWrapper>
+            <C.TaskDescriptionWrapper expanded={expanded}>
                 <C.TaskDescription 
                 value={description} 
                 expanded={expanded} 
@@ -93,6 +95,7 @@ function Task({props=GetTaskProps()}) {
                 </C.TaskButton>
             </C.TaskButtons>
 
+            {children}
         </C.Container>
     )
 }

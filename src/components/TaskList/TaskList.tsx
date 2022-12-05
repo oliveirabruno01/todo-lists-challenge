@@ -2,21 +2,16 @@ import React from 'react';
 import * as C from './TaskList.styles';
 import Task, { GetTaskProps}  from '../Task/Task';
 
-function TaskList({title}) {
+function TaskList({title, children}) {
     return(
         <C.Container>
             <div>
                 <C.TaskListTitle fixed>{title}</C.TaskListTitle>
-                <C.Dots>⬤  ⬤  ⬤</C.Dots>
+                <C.Dots>&#11044; &#11044; &#11044;</C.Dots>
             </div>
             
             <C.Scrollabe>
-                <Task></Task>
-                <Task></Task>
-                <Task></Task>
-                <Task></Task>
-                <Task></Task>
-                <Task></Task>
+                {children}
             </C.Scrollabe>
         </C.Container>
     )

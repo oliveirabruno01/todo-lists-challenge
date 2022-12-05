@@ -2,14 +2,19 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     overflow: hidden;
-
+    margin-bottom: .6rem; 
+    
     ${props=> props.expanded?`
         height: 10rem;
         background-color: #F2F2F2;
-        border-radius: 20px; 
-        margin-bottom: .6rem; 
+        border-radius: 20px;
     ` : `
-        height: 2.8rem;
+        height: 2.7rem;
+        :hover {
+            border-radius: 20px;
+        }
+        
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     `};
     padding: 20px, 14px, 14px, 12px;
 
@@ -30,9 +35,7 @@ export const TaskTitle = styled.h1`
         :hover {
             border-radius: 20px;
             background-color: #F2F2F2;
-            margin: .1rem 0;
-            padding: .4rem 0;
-            font-size: 17px;
+            transform: translate(8px, 0);
         } 
     `};
 
@@ -61,6 +64,7 @@ export const TaskTitleText = styled.div`
 export const TaskDescriptionWrapper = styled.div`
     display: block;
     box-sizing: border-box;
+    ${props=> !props.expanded?'margin-bottom: 1rem;':''};
 `;
 
 
@@ -68,7 +72,10 @@ export const TaskDescription = styled.textarea`
     ${props=> props.expanded?`
         color: #00000040;
         background-color: #F2F2F2;
-    `:'color: transparent;'};
+    `:`
+        color: transparent;
+        display: none;
+    `};
     border: 0;
     font-size: 16px;
 
