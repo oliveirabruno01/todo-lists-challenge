@@ -1,8 +1,37 @@
-# Getting Started with Create React App
+<img src=https://i.imgur.com/SaOSr8Q.png[/img height=150 alt="A big hand drawn dot"/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Sticky Todolists Challenge powered by React
 
-## Available Scripts
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Google](https://img.shields.io/badge/google-4285F4?style=for-the-badge&logo=google&logoColor=white) [![Conventional Changelog](https://img.shields.io/badge/changelog-conventional-brightgreen.svg)](http://conventional-changelog.github.io)
+
+## Development
+
+This app was developed on a test job, from a figma design template. It was also a test of skills, and I intend to continue this project, as some of the features I planned ended up being left out.
+
+My initial idea was to make a **trello-like** application, with data persistence, with the option for the user to save and export their to-do lists, in a standard object model, both from their devices and from the internet. In fact, my main intention was/is to make this app compliant with the Web of Data devised by Tim Berners-lee, keeping the task lists indexable by RDF, and mainly providing the imports/exports through **Solid Pods**. And as an additional aesthetic I would/will add a theme activated by a button on the side of the page, with reddish tones, dark colors and shadow effects with material design simulating that the light would be coming out of the dot at the top of the screen, and instead of a list of tasks it would be lists of random phrases 👻
+
+spoiler: **but most of it failed**
+
+  
+    
+Currently the app is in beta-development, the animations are almost 100% as I would like for the base, however the drag and drop features are very flawed. Due to bad planning choices I wasted a lot of time trying to get drag and drops to work, since it was my first time using react "for real" (I currently work with ionic) and I ended up falling into an abyss of bugs that were never resolved from the deprecated react-beautiful-dnd (summed up with some planning mistakes) 
+
+Below is a list of bugs and future features.
+
+## Bugs
+- **Drag-and-drop** between tasks in the same list works but it literally reverses the position of two tasks. For sibling cards it looks nice, but for distant cards on the same list the effect is unnatural and abrupt, and I still haven't figured out why some specific data isn't being persisted even though it's being set in the store.
+
+- DnD between items from **different lists** invariably buggy, however as far as I can debug the switches are happening normally. I believe **this and the other bugs** were due to me using Objects to handle the data on the reducer side, and Arrays on the component side, and not being able to assemble the arrays into objects efficiently 
+
+## To-do (pun intended)
+- **First, rebuilding the app from scratch**, using practices I've been seeing about TDD, and redesigning it more calmly, to make it more modular (one of my main mistakes was not knowing how to componentize the drag-and-drop elements, I believe).
+- Launch import and export of to-do lists, and the "inverted theme"
+- It would be fun to test implementation with blockchains and create immutable task lists
+
+
+## This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+### Available Scripts
 
 In the project directory, you can run:
 
