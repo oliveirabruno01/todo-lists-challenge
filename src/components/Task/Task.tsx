@@ -8,31 +8,12 @@ import saveIcon from "./save-task-icon.svg"
 
 import { TaskState } from "../../app/types"
 import { useAppSelector, useAppDispatch} from '../../app/hooks';
-import { update, updateTaskById } from '../../app/tasklists/tasklistsSlice';
-
-interface TaskProps {
-    id: number;
-    title: string;
-    description: string;
-    indicator: "dot" | "circle" | "sharp";
-    open: true | false;
-    index: number
-}
-
-const TaskDefaults: TaskProps = {
-    id: -1,
-    title: "Default Task",
-    description: "Some description",
-    indicator: "dot",
-    open: false,
-    index: -1,
-
-}
+import { updateTaskById } from '../../app/tasklistsReducer/tasklistsSlice';
 
 const listIndicator = (name) => {
-    if (name == "dot") return todoIcon;
-    if (name == "circle") return progressIcon;
-    if (name == "sharp") return doneIcon;
+    if (name === "dot") return todoIcon;
+    if (name === "circle") return progressIcon;
+    if (name === "sharp") return doneIcon;
 }
 
 const orderOfIndicator = {
@@ -47,39 +28,10 @@ const progressOrder = {
     2: 'sharp'
 };
 
-export const getDefaultTaskProps = (props={}): TaskProps => {
-    return {...TaskDefaults, ...props }
-}
-
 function Task({_props={id: 0, listName:''}}) {
 
     const mData = useAppSelector((state) => state)
-    /* console.log(mData) */
     const dispatch = useAppDispatch();
-    const setMData = (s) => dispatch(update(s));
-    /* console.log(mData); */
-
-    const getTaskStateById = (id: number): {task: TaskState, list: string, index: number} => {
-        let _task;
-        
-        for (const list in mData) {
-            let listObj = mData[list]
-            let _index = 0;
-            for (const item in listObj) {
-                let recordedTask = listObj[item];
-                if (recordedTask.id === id) {
-                    _task = {task: recordedTask, list, index: _index}
-                    _index++;
-                    break
-                }
-            }
-            break
-        };
-
-        return _task;
-    }
-/*     console.log("_______\n\n")
-    console.log(_props) */
 
     let props;
     for (const _task in mData[_props.listName]) {
@@ -88,8 +40,6 @@ function Task({_props={id: 0, listName:''}}) {
             props = task as TaskState;
         }
     };
-/* 
-    console.log(props); */
 
     const [expanded, setExpanded] = useState(false);
     const toggleExpanded = () => {
@@ -99,7 +49,6 @@ function Task({_props={id: 0, listName:''}}) {
     const [state, setState] = useState(props);
     const [description, setDescription] = useState(state?.description);
 
-    /* console.log(state); */
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -112,8 +61,7 @@ function Task({_props={id: 0, listName:''}}) {
         let nextIndicator = indicator+1<Object.keys(progressOrder).length?indicator+1:0;
 
         let changes = {...state, ...{indicator: progressOrder[nextIndicator]}};
-/*         console.log("CHANGES: ")
-        console.log(changes) */
+
         dispatch(updateTaskById({id: props.id, state: changes}))
 
         setState({...state, ...{indicator: progressOrder[nextIndicator]} });
@@ -125,7 +73,6 @@ function Task({_props={id: 0, listName:''}}) {
     }
 
     const saveDescription = (e) => {
-        let task = getTaskStateById(props.id);
         let changes = {...state, ...{description: description}};
 
         dispatch(updateTaskById({id: props.id, state: changes}))
@@ -150,11 +97,11 @@ function Task({_props={id: 0, listName:''}}) {
 
             <C.TaskButtons>
                 <C.TaskButton onClick={expanded?discardDescription:()=>{}} model={'discard'}>
-                    <img src={discardIcon}/>
+                    <img src={discardIcon} alt={"Discard description"}/>
                     Discard
                 </C.TaskButton>
                 <C.TaskButton onClick={expanded?saveDescription:()=>{}} model={'save'}>
-                <img src={saveIcon}/>
+                <img src={saveIcon} alt={"Save description"}/>
                     Save task
                 </C.TaskButton>
             </C.TaskButtons>

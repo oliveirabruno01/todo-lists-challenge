@@ -1,7 +1,5 @@
-import { configureStore, Store } from '@reduxjs/toolkit'
-import tasklistsReducer from './tasklists/tasklistsSlice';
-import autoMergeLevel1 from 'redux-persist/lib/stateReconciler/autoMergeLevel1'
-
+import { configureStore } from '@reduxjs/toolkit'
+import tasklistsReducer from './tasklistsReducer/tasklistsSlice';
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk';

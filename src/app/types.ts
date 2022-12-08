@@ -11,4 +11,5 @@ export interface TasklistsState {
     todo: Array<TaskState>
     progress: Array<TaskState>
     done: Array<TaskState>
+    new: Array<TaskState>
 }

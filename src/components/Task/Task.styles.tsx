@@ -53,8 +53,8 @@ export const TaskIndicator = styled.img`
     left: 15px;
     transform: translate(0, -50%);
 
-    ${props=> props.image=='dot'?'width: 6px; border-radius: 50%':''};
-    ${props=> props.image=='sharp'?'left: 8px;':''};
+    ${props=> props.image==='dot'?'width: 6px; border-radius: 50%':''};
+    ${props=> props.image==='sharp'?'left: 8px;':''};
 `;
 
 export const TaskTitleText = styled.div`
@@ -115,5 +115,5 @@ export const TaskButton = styled.button`
     font-weight: 500;
     font-size: 16px;
 
-    ${props => props.model == 'discard' ?  'background: #E7D6D6;': 'background:#DADEE9'};
+    ${props => props.model === 'discard' ?  'background: #E7D6D6;': 'background:#DADEE9'};
 `;

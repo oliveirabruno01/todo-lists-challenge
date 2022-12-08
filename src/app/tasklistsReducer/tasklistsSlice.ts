@@ -1,4 +1,4 @@
-import { createSlice, current, Draft, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
 import { TasklistsState, TaskState } from '../types';
 
 const mockedData: TasklistsState = {
@@ -96,6 +96,16 @@ const mockedData: TasklistsState = {
       index: 5
     },
   ],
+  new: [
+    {
+      title: "Drag your first task!",
+      description: "This is the Sixty task from: doneSome description",
+      indicator: 'sharp',
+      open: false,
+      id: 999,
+      index: 5
+    },
+  ]
 }
 
 const getTaskData = (taskId: number, _state: TasklistsState): {props: TaskState, tasklist: string, taskIndex: number} => {
@@ -106,7 +116,7 @@ const getTaskData = (taskId: number, _state: TasklistsState): {props: TaskState,
     let listObj: TasklistsState = _state[list];
     for (const task in listObj) {
       let taskObj: TaskState = listObj[task];
-      if (taskObj.id == taskId) {
+      if (taskObj.id === taskId) {
         taskData = {props: taskObj, tasklist:list, taskIndex: index};
         index++;
       }
@@ -121,7 +131,6 @@ export const tasklistsSlice = createSlice({
   reducers: {
     update: (state, action: PayloadAction<TasklistsState>) => {
       state = {...state, ...action.payload}
-      console.log(state)
     },
     updateTaskById: (state, action: PayloadAction<{id: number, state: TaskState}>) => {
       let task: TaskState = action.payload.state;
@@ -141,7 +150,7 @@ export const tasklistsSlice = createSlice({
       const [removed] = source.splice(index, 1);
       dest.splice(index, 0, removed);
 
-      let changes: TasklistsState = {todo: [], progress: [], done: []}
+      let changes: TasklistsState = {todo: [], progress: [], done: [], new: []}
       changes[paths[0]] = source;
       changes[paths[1]] = dest;
 
@@ -150,6 +159,7 @@ export const tasklistsSlice = createSlice({
       if (newState.todo.length === 0) newState.todo = current(state).todo
       if (newState.progress.length === 0) newState.progress = current(state).progress
       if (newState.done.length === 0) newState.done = current(state).done
+      if (newState.new.length === 0) newState.new = current(state).new
 
       /* console.log(newState) */
       
