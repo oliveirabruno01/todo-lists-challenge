@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from "styled-components";
 
 
@@ -8,12 +8,12 @@ const StyledRow = styled.div`
     justify-content: center;
 `;
 
-const ListsRow: React.FC = ({
-    children,
-}) => (
-    <StyledRow>
-        {children}
-    </StyledRow>
-)
+export class ListsRow extends React.Component <any, any>  {
+    render() {
+        return <StyledRow>
+            { this.props.children }
+        </StyledRow>
+    }
+}
 
 export default ListsRow;

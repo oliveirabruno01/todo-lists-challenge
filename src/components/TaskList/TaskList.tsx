@@ -1,6 +1,5 @@
 import React from 'react';
 import * as C from './TaskList.styles';
-import Task, { GetTaskProps}  from '../Task/Task';
 
 function TaskList({title, children}) {
     return(

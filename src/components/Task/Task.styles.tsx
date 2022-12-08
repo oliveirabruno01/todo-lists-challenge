@@ -53,8 +53,8 @@ export const TaskIndicator = styled.img`
     left: 15px;
     transform: translate(0, -50%);
 
-    ${props=> props.image=='todo'?'width: 6px; border-radius: 50%':''};
-    ${props=> props.image=='done'?'left: 8px;':''};
+    ${props=> props.image=='dot'?'width: 6px; border-radius: 50%':''};
+    ${props=> props.image=='sharp'?'left: 8px;':''};
 `;
 
 export const TaskTitleText = styled.div`
